@@ -2,26 +2,27 @@ let installed = false
 
 const VueOnline = {}
 
-// We only need one instance of the connectivity checker
-VueOnline.instance = new Vue({
-	data: function() {
-		return {
-			status: false //  the status has to be a reactive property
-		}
-	}
-})
-
-// 
 function updateOnlineStatus() {
-	VueOnline.instance.status = navigator.onLine
+	if (VueOnline && VueOnline.instance) {
+		VueOnline.instance.status = navigator.onLine
+	}
 }
-updateOnlineStatus() // call immediately
 
 /**
  * Install AmIOnline
  */
 VueOnline.install = function(Vue) {
 	if (!installed) {
+
+		// We only need one instance of the connectivity checker
+		VueOnline.instance = new Vue({
+			data: function() {
+				return {
+					status: navigator.onLine //  the status has to be a reactive property
+				}
+			}
+		})
+
 		// can get $online, but don't let components set $online
 		Object.defineProperty(Vue.prototype, "$online", {
 			get: function get() {
@@ -29,8 +30,10 @@ VueOnline.install = function(Vue) {
 			}
 		})
 
+		// listen to "online" and "offline" events
 		window.addEventListener("online", updateOnlineStatus)
 		window.addEventListener("offline", updateOnlineStatus)
+
 	}
 	installed = true
 }
