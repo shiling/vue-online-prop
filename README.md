@@ -15,3 +15,5 @@ How to install
 import VueOnlineProp from "vue-online-prop"
 Vue.use(VueOnlineProp)
 ```
+
+It's a really tiny plugin (<1kb, unminified).
