@@ -1,6 +1,6 @@
 {
   "name": "vue-online-prop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "VueJS plugin that exposes $online to Vue components to indicate whether a user connected to the internet or not",
   "main": "index.js",
   "scripts": {
